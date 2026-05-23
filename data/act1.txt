@@ -1,0 +1,77 @@
+Riverbank
+Step type: npcTalk to Wounded Man, loot and equip your weapon
+Step type: lootLoot the Large Chests you find and equip the items and skills
+Step type: killKill The Bloated Miller
+Step type: exitEnter Clearfell Encampment behind the boss
+Clearfell Encampment
+Step type: npcTalk to Renly to get a Skill Gem Lvl 1 and accept his quest
+Step type: exitEnter Clearfell
+Clearfell
+Step type: killKill Beira to loot and use Head of the Winter Wolf for +10% cold resistance
+Step type: kill(Optional) Enter Mud Borrows, kill The Devourer for a Random Gem and go back
+Step type: loot(Optional) Find an Abandoned Stash to get an Skill Gem Lvl 1
+Step type: exitEnter Grelwood
+Grelwood
+Step type: npcFind, summon and talk to Una and the waypoint
+Step type: exitEnter Grim Tangle, take the waypoint and go back
+Step type: exitEnter The Red Vale, take the waypoint and go back
+Step type: kill(Optional) Kill Gerung, the Brambleghast to get a Skill Gem Lvl 1
+Step type: kill(Optional) Find a hut with a Cauldron for flasks and kill Areagne, Forgotten Witch for a Support Gem LvL 1
+Step type: exitEnter Red Vale
+Red Vale
+Step type: killFind the three Obelisks of Rust and loot Runed Girdle each time (The Rust King will spawn on the last one)
+Step type: tpTeleport back to town
+Clearfell Encampment
+Step type: npcTalk to Renly and get Runed Spikes
+Step type: tpTeleport to Grelwood
+Grelwood
+Step type: useClick on the three Runic Seals
+Step type: npcTalk to Una
+Step type: tpTeleport back to town
+Clearfell Encampment
+Step type: npcTalk to Una
+Step type: tpTeleport to Grim Tangle (or to Grelwood to find it if you still haven't)
+Grim Tangle
+Step type: kill(Optional) Kill The Rotten Druid for a Support Gem Lvl 1
+Step type: exitEnter Cemetery of the Eternals
+Cemetery of the Eternals
+Step type: npcTalk to Lachlann the Lost
+Step type: loot(Optional) Loot the Sarcophagus near a checkpoint for a guaranteed Ring
+Step type: killFind the Tomb of the Consort, kill Asinia, loot the Key Piece and teleport back
+Step type: killFind the Mausoleum of the Praetor, kill Draven, loot the Key Piece and teleport back
+Step type: useOpen the Memorial Gate next to Lachlann
+Step type: killKill Lachlann and loot the Ring
+Step type: tpTeleport back to town
+Clearfell Encampment
+Step type: npcTalk to Finn, Una and The Hooded One
+Step type: tpTeleport to Hunting Grounds
+Hunting Grounds
+Step type: npcTalk to Delwyn
+Step type: killKill The Crowbell to loot Book of Specialisation, giving two passive points
+Step type: exitEnter Freythorn, take waypoint and go back
+Step type: exitEnter Ogham Farmlands, take waypoint and go back
+Step type: kill(Optional) Do the small ritual event near a checkpoint for a Support Gem Lvl 1
+Step type: tpTeleport to Freythorn
+Freythorn
+Step type: killIntaract with the three smalls Ritual Altars
+Step type: killFind the big Ritual Altar to summon and kill The King in the Mists
+Step type: tpTeleport to Ogham Farmlands
+Ogham Farmlands
+Step type: useInteract with Una's Lute Box in a house near a checkpoint to loot Una's Lute
+Step type: kill(Optional) Kill the rare dogs in the crop circle for a Skill Gem Lvl 4
+Step type: exitEnter Ogham village
+Ogham village
+Step type: use(First character) Find the Smithing Tools in a house near a checkpoint to unlock Salvaging Bench
+Step type: loot(Optional) Loot the Blacksmith's Chest in the same house for a Blank Rune (with a Lesser Rune as reward in town) and an Artificier's Orb
+Step type: killKill The Executioner
+Step type: npcGo upstairs, use the Lever and talk to Leitis
+Step type: exitEnter The Manor Ramparts
+The Manor Ramparts
+Step type: loot(Optional) Click the Rope of the hanging man near a checkpoint for a Support Gem Lvl 1
+Step type: exitEnter Oghman Manor
+Oghman Manor
+Step type: killKill Candlemass on the first floor to use Candlemass's Essence for +20 life
+Step type: killGo downstairs and kill Geonor
+Step type: tpTeleport back to town
+Clearfell Encampment
+Step type: npcTalk to everybody and finally to The Hooded One with "Follow the Beast's Trail"

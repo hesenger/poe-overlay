@@ -1,0 +1,32 @@
+The Glade
+Step type: npcTalk to everyone
+Step type: exitEnter Ashen Forest
+Ashen Forest
+Step type: loot(Optional) Interact with Ancien Monument for a Skill Gem Lvl 14
+Step type: exitEnter Kriar Village
+Kriar Village
+Step type: killKill Lythara to loot and use Gemcrust Skull for +40 Spirit and a Spirit Gem Level 14
+Step type: exitEnter Glacial Tarn
+Glacial Tarn
+Step type: killEnter Howling Caves, kill The Abominable Yeti, loot Icy Tusks and go back
+Step type: killKill Rakkar
+Step type: exitEnter Kriar Peaks
+Kriar Peaks
+Step type: npcTalk to Elder Madox for a free unique item
+Step type: exitEnter Etched Ravine
+Etched Ravine
+Step type: killKill Stormgore
+Step type: exitEnter Cuachic Vault
+The Cuachic Vault
+Step type: loot(Optional) You can loot Small soul cores to use on Altars to open vaults with random loots
+Step type: killKill Zelina and Zolin
+Step type: npcSummon and talk to Doryani
+Step type: tpTeleport to Kingsmarch in Act 4
+Kingsmarch
+Step type: npcTalk to The Hooded One, take reward and "Travel to Oriah"
+The Ziggurat Refuge
+Step type: npcTalk to Alva on the bottom
+Step type: npcTalk to Doryani on the top
+Step type: infoYou are now in the Endgame!
+Step type: killDo your first map
+Step type: npcTalk Doryani

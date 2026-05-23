@@ -1,0 +1,100 @@
+Vastriri Outskirts
+Step type: npcTalk to The Hooded One
+Step type: killKill Rathbreaker
+Step type: tpTeleport back to the start of the zone
+Step type: npcTalk to Zarka
+Step type: exitEnter The Ardura Caravan
+The Ardura Caravan
+Step type: npcTalk to The Hooded One and to Sekhema Asala two times
+Step type: travelUse the Desert Map to travel to The Halani Gates
+Step type: npcEnter The Halani Gates and talk to Sekhema Asala
+Step type: npcGo back in The Ardura Caravan and talk to Sekhema Asala
+Step type: travelUse the Desert Map to travel to Mawdun Quarry and enter it
+Mawdun Quarry
+Step type: loot(Optional) Loot Faridun War Cache near a checkpoint for an Artificer's Orb
+Step type: exitEnter Mawdun Mine (follow checkpoints)
+Mawdun Mine
+Step type: killKill Rudja
+Step type: npcTalk to Risu in the cage
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Risu and Sekhema Asala near the desert map
+Step type: travelTravel to Traitor's Passage
+Traitor's Passage
+Step type: killInteract with the Ancient Seal door and the Runic Seals to kill and loot Balbala
+Step type: loot(Optional) Loot the Bell Chest in a dead end with gold on ground for random loots
+Step type: exitEnter The Halini Gates (follow the stairs up)
+The Halini Gates
+Step type: npcSummon Asala to open the gates
+Step type: kill(Optional) Kill the rare in the middle near checkpoint for random loots
+Step type: killKill Jamanra
+Step type: exitTake the stairs and search the checkpoint
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Shambrin, Zarka and Sekhema Asala
+Step type: travelTravel to Trial of Sekhemas, take the waypoint and do the trial if you can
+Step type: tpTeleport back to town
+Step type: travelTravel to Mastodon Badlands
+Mastodon Badlands
+Step type: loot(Optional) Loot the Effigy near a checkpoint for a Support Gem Lvl 2
+Step type: exitEnter The Bone Pits
+The Bone Pits
+Step type: lootKill mobs until you drop Sun Clan Relic
+Step type: killKill Iktab & Ekbab and loot Mastodon Tusks
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Zarka
+Step type: travelTravel to Keth
+Keth
+Step type: lootKill mobs until you drop Kabala Clan Relic
+Step type: loot(Optional) Enter Stairs near checkpoint for random valuable loots
+Step type: killKill Kabala and use the looted Book of Specialisation for two passive points
+Step type: exitEnter The Lost City
+The Lost City
+Step type: kill(Optional) Kill The Ninth Treasure of Keth near a checkpoint for random valuable loots
+Step type: loot(Optional) Loot the Tomb near a checkpoint for a Spirit Gem Lvl 7
+Step type: exitEnter Buried Shrines
+Buried Shrines
+Step type: loot(Optional) Loot the guarded sarcophagus for a Support Gem
+Step type: loot(Optional) Choose an Offering of water/fire/lightning for corresponding ring
+Step type: exitEnter The Heart of Keth
+The Heart of Keth
+Step type: killKill Azarian
+Step type: npcTalk to The Water Goddess behind the boss, click on Everburning Cinders and Ignite the Goddess
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Zarka
+Step type: travelTravel to Valley of the Titans
+Valley of the Titans
+Step type: lootFind three Ancient Seals
+Step type: lootInteract with the Medallion near the waypoint, place the two relics from earlier and choose a boon
+Step type: exitUnlock and enter The Titan Grotto near a checkpoint
+The Titan Grotto
+Step type: killKill Zalmarath and loot The Flame Ruby
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Zarka and Sekhema Asala
+Step type: travelTravel to Hilani Gates but don't enter the zone
+Step type: useSound the Horn at the top of the caravan
+Step type: npcTalk to Sekhema Asala
+Step type: travelTravel to Deshar
+Deshar
+Step type: lootFind and loot Fallen Dekhara, generally near a tower
+Step type: exitEnter Path of Mourning
+Path of Mourning
+Step type: exitEnter The Spires of Deshar
+The Spires of Deshar
+Step type: useInteract with Sisters of Garukhan for +10% lightning resistance
+Step type: killKill Tor Gul
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcTalk to Sekhema Asala
+Step type: travelTravel to The Dreadnought
+The Dreadnought
+Step type: exitEnter Dreadnought Vanguard
+Dreadnought Vanguard
+Step type: killKill Jamara
+Step type: tpTeleport back to town
+The Ardura Caravan
+Step type: npcExit the caravan on top left to talk to The Hooded One and wait for the animation
+Step type: npcGo back to talk to Sekhema Asala and choose "Travel to the Sandswept Marsh"

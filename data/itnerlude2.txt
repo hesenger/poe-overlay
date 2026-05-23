@@ -1,0 +1,34 @@
+The Kaari Bazar
+Step type: npcTalk to Sekhema Asala then Zarka then Risu
+Step type: exitEnter The Khari Crossing
+The Khari Crossing
+Step type: useEnter the Skullmaw Stairway (north) and use the Molten One's Gift for +5% life
+Step type: killKill Akthi, the Final Sting and Anundr, the Sandworm
+Step type: exitFind Pools of Khatal, get waypoint and go back
+Step type: exitFind Galai Gates, get waypoint and go back
+Step type: tpTeleport back to town
+The Kaari Bazar
+Step type: npcTalk to Risu for two passive points
+Step type: tpTeleport to Pools of Khatal
+Pools of Khatal
+Step type: exitEnter Sel Khari Sanctuary
+Sel Khari Sanctuary
+Step type: use(Optional) Find Yoon's Barya and Rangeen's Barya and place them in their pedestrals for 2 rare items
+Step type: killKill Elzarah, the Cobra Lord
+Step type: npcTalk to Sekhema Asala
+Step type: tpTeleport to The Galai Gates
+The Galai Gates
+Step type: killKill Vornas, the Fell Flame
+Step type: exitEnter Qimah
+Qimah
+Step type: useFind the Orbala's Pillar to choose a changeable buff
+Step type: npcTalk to Jado
+Step type: exitEnter Qimah Reservoir
+Qimah Reservoir
+Step type: use(Optional) Use the Vials of Sacred Water you randomly loot here in the Sacred Wells for random currency item
+Step type: killKill Azmadi, the Faridun Prince
+Step type: useClick on Grand Barya
+Step type: npcTalk to Jado
+Step type: tpTeleport back to town
+The Refuge
+Step type: npcTalk to The Hooded One and select "Travel to Mount Kriar"

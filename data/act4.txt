@@ -1,0 +1,89 @@
+Kingsmarch
+Step type: npcTalk to Doryani
+Step type: npcContinue and talk to Alva to get the reward
+Step type: npcContinue and talk to Rog in the house
+Step type: npcTalk to Makoru on the boat and choose a destination
+Step type: infoThis act is not linear. This section is a suggestion.
+Whakapanu
+Step type: kill(Optional) Find the Shark Pit, approach the water and kill The Great One
+Step type: kill(Optional) Find the cavern and kill the rare to loot a Support Gem Lvl 4
+Step type: lootFind and loot the Pretrified Pirate
+Step type: exitEnter The Singing Caverns
+Whakapanu - The Singing Caverns
+Step type: kill(Optional) Find the Beckoning Clam, kill the rare and loot the Humming Pearl
+Step type: killKill Diamora, Song of Death
+Step type: npcTalk to The Hooded One
+Step type: tpTeleport back to town
+Kingsmarch
+Step type: npcTalk to Ange and travel to Shoreline Hideout
+Step type: killClear the Hideout
+Step type: npcTalk to Ange
+Shrike Island
+Step type: loot(Optional) Loot the Corpse Nest
+Step type: killKill Scourge of the Skies
+Step type: npcTalk to The Hooded One
+Step type: tpTeleport back to town
+Abandoned Prison
+Step type: killSlay monsters until Chapel Key drop
+Step type: killOpen the Chapel Door, kill the rares and select a flask boon
+Step type: exitEnter Solitary Confinement
+Abandoned Prison - Solitary Confinement
+Step type: killKill The Prisoner
+Step type: npcTalk to The Hooded One
+Isle of Kin
+Step type: loot(Optional) Find and loot the Flayed Sailor
+Step type: kill(Optional) Kill Mimbok the Enslaved in a pen for a Skill Gem Lvl 12 and Support Gem Lvl 4
+Step type: killKill The Blind Beast in an arena for 2 passive points
+Step type: exitEnter Volcanic Warrens
+Isle of Kin - Volcanic Warrens
+Step type: killKill Krutog, Lord of Kin
+Step type: npcClick on the cage to talk to Matiki
+Step type: tpTeleport back to town
+Kedge Bay
+Step type: infoThis island is fully optional
+Step type: loot(Optional) Find and loot the Dead Man's Chest
+Step type: exitEnter Journey's End
+Kedge Bay - Journey's End
+Step type: npcTalk to Tujen
+Step type: killKill Captain Harlin and loot the Verisium
+Step type: npcTeleport at the beginning and talk to Freya Hartlin
+Step type: tpTeleport to town
+Step type: npcTalk to Dannig and get Versium Spikes
+Step type: tpTeleport back to Journey's End
+Step type: npcTalk to Freya Harlin
+Step type: killClick on a totem, do the encounter and kill Omniphobia
+Step type: tpTeleport back to town
+Eye of Hinekora
+Step type: npcTalk to Matiki and click on the well
+Step type: loot(Optional) Loot the chest behind the waterfall for a Skill Gem Lvl 12
+Step type: killDo all tests: Fire, Nature and Cold
+Step type: useFind the Silent Hall and an altar to Pay your Respects, than talk to Navali
+Step type: exitEnter Hall of the Dead
+Eye of Hinekora - Hall of the Dead
+Step type: lootLoot the Blank Tattoos from the 3 tests
+Step type: killFight Yama the White and loot the Silver Coin
+Step type: exitEnter Trial of the Ancestors
+Eye of Hinekora - Trial of the Ancestors
+Step type: npcTalk to Navali to get the Tattoo
+Step type: infoThis zone will contain the third way to get ascendency points in a future game version
+Step type: tpTeleport back to town
+Plunder's Point
+Step type: infoThis island is optional and available when you have all four torn map pieces. You have to talk to Makuro with the "Map treasure" lines to unlock the island.
+Step type: npcTalk to Danning
+Step type: killDo the expedition encounter by placing explosives
+Step type: tpTeleport back to town
+Arasthas
+Step type: killTalk to Missionari Lorandis, follow him, get out and destroy the shield
+Step type: loot(Optional) Loot the Evening Bell and Morning Bell to loot currency items
+Step type: killKill Torvian, Hand of the Saviour (bait the rock throws to the NPCs)
+Step type: exitEnter the Excavation
+Arasthas - Excavation
+Step type: killKill Benedictus, First Heral of Utopia
+Step type: npcContinue for lore then talk to The Hooded One
+Step type: tpTeleport back to town
+Ngakanu
+Step type: exitEnter Heart of the Tribe
+Ngakanu - Heart of the Tribe
+Step type: killKill Tavaki
+Step type: npcTalk to Tavaki
+Step type: tpTeleport back to town

@@ -1,0 +1,33 @@
+Any
+Step type: npcTalk to The Hooded One and select "Travel to Ogham"
+The Refuge
+Step type: npcTalk to The Hooded One, Renly and Finn
+Step type: exitEnter Scorched Farmlands at the bottom
+Scorched Farmlands
+Step type: killKill Isolde of the White Shroud and Heldra of the Black Pyre
+Step type: exitEnter Stones of Serles
+Stones of Serle
+Step type: useGo around the map to activate the six Runed Monoliths
+Step type: killKill Siora, Blade of the Mists in the middle of the map
+Step type: npcTalk to Una
+Step type: exitGo back to Scorched Farmlands
+Scorched Farmlands
+Step type: exitFind The Blackwood where there was darkness before if you found it
+The Blackwood
+Step type: use(Optional) Find Omen Altars to get Omen items for gambling
+Step type: exitEnter Holten
+Holten
+Step type: kill(Optional) Kill Sigbert of the Sullied Oath and Godwin of the Shattered Creed (doesn't reward anything special)
+Step type: npc(Optional) In the middle of the map, Soul of the Ferryman sells a bunch of Greater Runes fairly cheap
+Step type: exitEnter Wolvenhold, take the waypoint and go back
+Step type: exitEnter Holden Estate, take the waypoint and go back
+Step type: exitEnter Wolvenhold
+Wolvenhold
+Step type: killKill Oswin, the Dread Warden to loot an item giving two passive points
+Step type: tpTeleport to Holden Estate
+Holden Estate
+Step type: killKill Thane Wulfric and Lady Elyswyth
+Step type: tpTeleport back to town
+The Refuge
+Step type: npcTalk to Renly
+Step type: npcTalk to The Hooded One and "Travel to the Vastiri"

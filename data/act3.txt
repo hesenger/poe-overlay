@@ -1,0 +1,92 @@
+Sandswept March
+Step type: npcTalk to The Hooded One
+Step type: kill(Optional) Kill Rootdredge for a Skill Gem Lvl 9
+Step type: loot(Optional) Loot the Basket from Orok Campsite for a Lesser Jeweller's Orb
+Step type: loot(Optional) Loot the corpse from the hanging tree for a random magic ring
+Step type: exitEnter Ziggurat Encampment
+Ziggurat Encampment
+Step type: npcTalk to Alva, Oswald and The Hooded One
+Step type: exitEnter Jungle Ruins on top
+Jungle Ruins
+Step type: killKill Silverfist for a Book of Specialisation
+Step type: wpFind waypoint near The Venom Crypts
+Step type: exitEnter Infested Barrens
+Infested Barrends
+Step type: npcFind and talk to Alva and take the waypoint near her
+Step type: exitEnter Chimera Wetlands, take waypoint and go back
+Step type: exitEnter Azak Bog, take waypoint and go back
+Step type: tpTeleport to Venom Crypts
+The Venom Crypts
+Step type: lootFind a Corpse to loot Corpse-snake Venom
+Step type: tpTeleport back to town
+Ziggurat Encampment
+Step type: npcTalk to Servi
+Step type: tpTeleport to Chimeral Wetlands
+Chimeral Wetlands
+Step type: exitEnter The Temple of Chaos, take the waypoint and go back (this is the second ascension zone)
+Step type: killKill Xyclucian, the Chimera and loot Chimeral Inscribed Ultimatum
+Step type: exitEnter Jiquani's Machinarium behind the boss
+Jiquani's Machinarium
+Step type: npcSummon and talk to Alva
+Step type: lootLoot the Small Soul Core and use it on the Sone Altar next to Alva
+Step type: lootLoot three Small Soul Cores to open doors
+Step type: killOpen a door to kill Blackjaw and use The Flame Core for +10% fire res
+Step type: exitOpen a door to enter Jiquani's Sanctum
+Jiquani's Sanctum
+Step type: npcSummon and talk to Alva
+Step type: lootLoot two Medium Soul Cores and place them in the Generators
+Step type: killGo back at the beginning, click the Large Soul Core, kill Zicoatly and loot the core
+Step type: tpTeleport to Infested Barrens
+Infested Barrens
+Step type: useUse the core on the Stone Altar next to the waypoint
+Step type: exitEnter The Matlan Waterways
+The Matlan Waterways
+Step type: kill(Optional) Go to the hut and kill the rare for random loot
+Step type: useUse the big Canal Lever at the end of the zone
+Step type: tpTeleport back to town
+Ziggurat Encampment
+Step type: npcGo downstairs to talk to Alva
+Step type: exitEnter The Drowned City on the bottom
+The Drowned City
+Step type: exitFind Apex of Filth, take the waypoint and go back
+Step type: exitFind The Molten Vault, take the waypoint and go back
+Step type: tpTeleport to Azak Bog
+Azak Bog
+Step type: npcSummon and talk to Servi
+Step type: use(Optional) Activate Flameskin rituals you encounter for fire resistance and rarity for the rest of the zone
+Step type: killKill Ignagduk, loot the Spear and use his Gemrot Skull for +30 spirit
+Step type: tpTeleport to The Molten Vault if it's your first character or to town otherwise
+The Molten Vault
+Step type: kill(First character) Kill Mektul to unlock the Reforging Bench
+Step type: tpTeleport back to town
+Ziggurat Encampment
+Step type: npcTalk to Oswald
+Step type: tpTeleport to Apex of Filth
+Apex of Filth
+Step type: use(Optional) If you find three Mushrooms, use them on the Cauldron for random superior flasks
+Step type: killKill The Queen of Filth to get Temple Door Idol
+Step type: tpTeleport back to town
+Ziggurat Encampment
+Step type: npcTalk to Alva downstairs
+Step type: exitInteract with the Door behind her to enter Temple of Kopec
+Temple of Kopec
+Step type: killKill Ketzuli, High Priest of the Sun upstairs
+Step type: npcTalk to Alva and wait for lore
+Ziggurat Encampment
+Step type: useTake the Gateway
+Step type: exitGo downstairs to enter Utzaal
+Utzaal
+Step type: loot(Optional) Loot Sacrificial Heart on magic/rare mobs. Can also drop in the next zone.
+Step type: loot(Optional) You can go in small doors to find idols which can be traded for gold with Oswald in town
+Step type: killKill Viper Napuatzi
+Step type: exitEnter Aggorat
+Aggorat
+Step type: useUse the Sacrificial Heart on the altar (on top right of the map) and stab it with the Dagger for two passive points
+Step type: exitEnter The Black Chambers (on top left of the map)
+The Black Chambers
+Step type: killKill Doryani
+Step type: lootWait for the loot (30 seconds)
+Step type: tpTeleport back to town
+Ziggurat Encampment
+Step type: npcTalk to Doryani
+Step type: npcTalk to Doryani again, then Alva, then The Hooded One, and finally Alva
