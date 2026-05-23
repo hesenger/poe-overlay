@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"image"
 	"image/color"
 	"io"
@@ -28,15 +29,35 @@ import (
 
 const windowTitle = "PoE-Overlay-Window"
 const logFilePath = `C:\Program Files (x86)\Grinding Gear Games\Path of Exile 2\logs\LatestClient.txt`
+const guidePath = `data\act1.txt`
 
 var sceneRegex = regexp.MustCompile(`\[SCENE\] Set Source \[(.*?)\]`)
+
+func stepColor(t StepType) color.NRGBA {
+	switch t {
+	case StepNPC:
+		return color.NRGBA{R: 0x4d, G: 0xb8, B: 0xff, A: 0xff} // blue
+	case StepLoot:
+		return color.NRGBA{R: 0xff, G: 0xd7, B: 0x00, A: 0xff} // gold
+	case StepKill:
+		return color.NRGBA{R: 0xff, G: 0x4d, B: 0x4d, A: 0xff} // red
+	case StepExit:
+		return color.NRGBA{R: 0x4d, G: 0xff, B: 0x4d, A: 0xff} // green
+	case StepTP:
+		return color.NRGBA{R: 0x4d, G: 0xff, B: 0xff, A: 0xff} // cyan
+	case StepUse:
+		return color.NRGBA{R: 0xc0, G: 0x4d, B: 0xff, A: 0xff} // purple
+	default:
+		return color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff} // white
+	}
+}
 
 func main() {
 	go func() {
 		var w app.Window
 		w.Option(
 			app.Title(windowTitle),
-			app.Size(unit.Dp(400), unit.Dp(300)),
+			app.Size(unit.Dp(500), unit.Dp(400)),
 			app.Decorated(false), // Borderless
 		)
 
@@ -52,21 +73,29 @@ func run(w *app.Window) error {
 	var ops op.Ops
 	frameCount := 0
 
+	// Load guide
+	guide, err := LoadGuide(guidePath)
+	if err != nil {
+		log.Printf("Failed to load guide: %v", err)
+		guide = &Guide{}
+	}
+
 	// Channel to receive area names from the log reader
 	areaChan := make(chan string, 10)
 	go tailLogFile(areaChan)
 
-	// Current area name to display - protected by mutex since it's updated
-	// from a different goroutine.
+	// Current area and guide section - protected by mutex
 	var currentArea string = "Waiting for scene..."
+	var currentSection Section
 	var areaMu sync.Mutex
 
-	// Goroutine to consume area updates and invalidate the window,
-	// forcing an immediate redraw.
+	// Goroutine to consume area updates and invalidate the window
 	go func() {
 		for area := range areaChan {
 			areaMu.Lock()
 			currentArea = area
+			guide.OnAreaChange(area)
+			currentSection = guide.CurrentSection()
 			areaMu.Unlock()
 			w.Invalidate()
 		}
@@ -86,6 +115,7 @@ func run(w *app.Window) error {
 
 			areaMu.Lock()
 			areaName := currentArea
+			section := currentSection
 			areaMu.Unlock()
 
 			// 1. Let the first frame render completely so Windows allocates
@@ -118,15 +148,50 @@ func run(w *app.Window) error {
 			area.Pop()
 
 			// 4. Render a dark window background
-			paint.ColorOp{Color: color.NRGBA{R: 0x2d, G: 0x2d, B: 0x30, A: 0xff}}.Add(&ops)
+			paint.ColorOp{Color: color.NRGBA{R: 0x1a, G: 0x1a, B: 0x1e, A: 0xff}}.Add(&ops)
 			paint.PaintOp{}.Add(&ops)
 
-			// 5. Render the current area name centered in the window
-			layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-				label := material.Label(th, unit.Sp(24), areaName)
-				label.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
-				label.Alignment = text.Middle
-				return label.Layout(gtx)
+			// 5. Render guide content
+			layout.UniformInset(unit.Dp(12)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+					// Area name header
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						label := material.Label(th, unit.Sp(22), areaName)
+						label.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
+						label.Alignment = text.Middle
+						return label.Layout(gtx)
+					}),
+					layout.Rigid(layout.Spacer{Height: unit.Dp(8)}.Layout),
+					// Steps list
+					layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+						if len(section.Steps) == 0 {
+							label := material.Label(th, unit.Sp(14), "No guide steps for this area.")
+							label.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
+							label.Alignment = text.Middle
+							return label.Layout(gtx)
+						}
+
+						list := layout.List{Axis: layout.Vertical}
+						return list.Layout(gtx, len(section.Steps), func(gtx layout.Context, i int) layout.Dimensions {
+							step := section.Steps[i]
+							return layout.UniformInset(unit.Dp(4)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+								return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										badge := material.Label(th, unit.Sp(11), fmt.Sprintf("[%s]", strings.ToUpper(string(step.Type))))
+										badge.Color = stepColor(step.Type)
+										return badge.Layout(gtx)
+									}),
+									layout.Rigid(layout.Spacer{Width: unit.Dp(6)}.Layout),
+									layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+										textLabel := material.Label(th, unit.Sp(14), step.Text)
+										textLabel.Color = color.NRGBA{R: 0xdd, G: 0xdd, B: 0xdd, A: 0xff}
+										return textLabel.Layout(gtx)
+									}),
+								)
+							})
+						})
+					}),
+				)
 			})
 
 			e.Frame(&ops)
