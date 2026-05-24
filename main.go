@@ -16,9 +16,9 @@ import (
 	"time"
 	"unsafe"
 
-	"gioui.org/app"
-	"gioui.org/io/system"
-	"gioui.org/layout"
+		"gioui.org/app"
+		"gioui.org/io/system"
+		"gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
@@ -174,15 +174,7 @@ func run(w *app.Window) error {
 				Constraints: layout.Exact(e.Size),
 			}
 
-			// 2. Map out the clickable gesture area over the whole window size
-			area := clip.Rect(image.Rectangle{Max: e.Size}).Push(&ops)
-
-			// 3. Direct the OS to handle native window movement on drag
-			system.ActionInputOp(system.ActionMove).Add(&ops)
-
-			area.Pop()
-
-			// 4. Render a dark window background
+			// Render a dark window background
 			paint.ColorOp{Color: color.NRGBA{R: 0x1a, G: 0x1a, B: 0x1e, A: 0xff}}.Add(&ops)
 			paint.PaintOp{}.Add(&ops)
 
@@ -246,6 +238,11 @@ func run(w *app.Window) error {
 					}),
 				)
 			})
+
+			// Make the entire window draggable by adding a system move action on top of all content.
+			area := clip.Rect(image.Rectangle{Max: e.Size}).Push(gtx.Ops)
+			system.ActionInputOp(system.ActionMove).Add(gtx.Ops)
+			area.Pop()
 
 			e.Frame(&ops)
 		}
