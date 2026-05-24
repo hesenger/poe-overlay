@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -25,7 +24,6 @@ type Step struct {
 }
 
 type Section struct {
-	Act   string
 	Area  string
 	Steps []Step
 }
@@ -35,7 +33,7 @@ type Guide struct {
 	CurrentIndex int
 }
 
-func LoadGuide(path, act string) (*Guide, error) {
+func LoadGuide(path string) (*Guide, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -90,10 +88,9 @@ func LoadGuide(path, act string) (*Guide, error) {
 				guide.Sections = append(guide.Sections, *currentSection)
 			}
 			currentSection = &Section{
-					Act:   act,
-					Area:  line,
-					Steps: []Step{},
-				}
+				Area:  line,
+				Steps: []Step{},
+			}
 		}
 	}
 
@@ -113,9 +110,7 @@ func LoadGuides(paths []string) (*Guide, error) {
 		Sections: []Section{},
 	}
 	for _, path := range paths {
-		act := filepath.Base(path)
-		act = strings.TrimSuffix(act, filepath.Ext(act))
-		g, err := LoadGuide(path, act)
+		g, err := LoadGuide(path)
 		if err != nil {
 			return nil, err
 		}
@@ -133,12 +128,6 @@ func (g *Guide) OnAreaChange(area string) bool {
 		return true
 	}
 	return false
-}
-
-func (g *Guide) SetIndex(idx int) {
-	if idx >= 0 && idx < len(g.Sections) {
-		g.CurrentIndex = idx
-	}
 }
 
 func (g *Guide) CurrentSection() Section {

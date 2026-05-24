@@ -16,16 +16,15 @@ import (
 	"time"
 	"unsafe"
 
-		"gioui.org/app"
-		"gioui.org/io/system"
-		"gioui.org/layout"
-		"gioui.org/op"
-		"gioui.org/op/clip"
-		"gioui.org/op/paint"
-		"gioui.org/text"
-		"gioui.org/unit"
-		"gioui.org/widget"
-		"gioui.org/widget/material"
+	"gioui.org/app"
+	"gioui.org/io/system"
+	"gioui.org/layout"
+	"gioui.org/op"
+	"gioui.org/op/clip"
+	"gioui.org/op/paint"
+	"gioui.org/text"
+	"gioui.org/unit"
+	"gioui.org/widget/material"
 )
 
 const windowTitle = "PoE-Overlay-Window"
@@ -150,26 +149,6 @@ func run(w *app.Window) error {
 	// Theme for text rendering
 	th := material.NewTheme()
 
-	// Modal state
-	var showModal bool
-	var selectedAct string
-	actGroups := buildActGroups(guide.Sections)
-	if len(actGroups) > 0 {
-		selectedAct = actGroups[0].name
-	}
-
-	// Clickables
-	magnifierBtn := new(widget.Clickable)
-	closeBtn := new(widget.Clickable)
-	actBtns := make(map[string]*widget.Clickable)
-	for _, grp := range actGroups {
-		actBtns[grp.name] = new(widget.Clickable)
-	}
-	sceneBtns := make([]*widget.Clickable, len(guide.Sections))
-	for i := range sceneBtns {
-		sceneBtns[i] = new(widget.Clickable)
-	}
-
 	for {
 		e := w.Event()
 		switch e := e.(type) {
@@ -206,259 +185,91 @@ func run(w *app.Window) error {
 				Constraints: layout.Exact(e.Size),
 			}
 
-			if showModal {
-				// Modal overlay background
-				paint.ColorOp{Color: color.NRGBA{R: 0x00, G: 0x00, B: 0x00, A: 0xdd}}.Add(&ops)
-				paint.PaintOp{}.Add(&ops)
+			// Render a dark window background
+			paint.ColorOp{Color: color.NRGBA{R: 0x1a, G: 0x1a, B: 0x1e, A: 0xff}}.Add(&ops)
+			paint.PaintOp{}.Add(&ops)
 
-				// Handle close button
-				if closeBtn.Clicked(gtx) {
-					showModal = false
-				}
-
-				// Handle act selection
-				for _, grp := range actGroups {
-					if actBtns[grp.name].Clicked(gtx) {
-						selectedAct = grp.name
-					}
-				}
-
-				// Handle scene selection
-				for _, grp := range actGroups {
-					if grp.name != selectedAct {
-						continue
-					}
-					for _, sc := range grp.sections {
-						if sceneBtns[sc.index].Clicked(gtx) {
-							guide.SetIndex(sc.index)
-							areaMu.Lock()
-							currentSection = guide.CurrentSection()
-							areaFound = true
-							areaMu.Unlock()
-							showModal = false
-						}
-					}
-				}
-
-				// Modal content
-				layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-					return layout.UniformInset(unit.Dp(16)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-						// Card background
-						cardSize := image.Point{X: gtx.Dp(unit.Dp(420)), Y: gtx.Dp(unit.Dp(320))}
-						cardRect := clip.Rect(image.Rectangle{Max: cardSize}).Push(gtx.Ops)
-						paint.ColorOp{Color: color.NRGBA{R: 0x2a, G: 0x2a, B: 0x2e, A: 0xff}}.Add(gtx.Ops)
-						paint.PaintOp{}.Add(gtx.Ops)
-						cardRect.Pop()
-
-						gtx.Constraints = layout.Exact(cardSize)
-						return layout.UniformInset(unit.Dp(8)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-							return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-								// Header
+			// 5. Render guide content
+			layout.UniformInset(unit.Dp(4)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+					// Area name header (from the guide section, not the raw log)
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, Spacing: layout.SpaceStart}.Layout(gtx,
 								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-									return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, Spacing: layout.SpaceBetween}.Layout(gtx,
-										layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-											label := material.Label(th, unit.Sp(16), "Select Scene")
-											label.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
-											return label.Layout(gtx)
-										}),
-										layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-											// Close button
-											btn := material.Button(th, closeBtn, "\u2715")
-											btn.Background = color.NRGBA{R: 0x2a, G: 0x2a, B: 0x2e, A: 0xff}
-											btn.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
-											btn.Inset = layout.UniformInset(unit.Dp(2))
-											return btn.Layout(gtx)
-										}),
-									)
+									headerArea := section.Area
+									if headerArea == "" {
+										headerArea = areaName
+									}
+									label := material.Label(th, unit.Sp(16), headerArea)
+									label.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
+									return label.Layout(gtx)
 								}),
-								layout.Rigid(layout.Spacer{Height: unit.Dp(8)}.Layout),
-								// Two-column body
-								layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-									return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
-										// Acts column
-										layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-											actList := layout.List{Axis: layout.Vertical}
-											return actList.Layout(gtx, len(actGroups), func(gtx layout.Context, i int) layout.Dimensions {
-												grp := actGroups[i]
-												isSelected := grp.name == selectedAct
-												btn := material.Button(th, actBtns[grp.name], grp.name)
-												if isSelected {
-													btn.Background = color.NRGBA{R: 0x3a, G: 0x3a, B: 0x3e, A: 0xff}
-													btn.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
-												} else {
-													btn.Background = color.NRGBA{R: 0x2a, G: 0x2a, B: 0x2e, A: 0xff}
-													btn.Color = color.NRGBA{R: 0xbb, G: 0xbb, B: 0xbb, A: 0xff}
-												}
-												btn.Inset = layout.UniformInset(unit.Dp(4))
-												return btn.Layout(gtx)
-											})
-										}),
-										layout.Rigid(layout.Spacer{Width: unit.Dp(8)}.Layout),
-										// Scenes column
-										layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-											var scenes []sectionRef
-											for _, grp := range actGroups {
-												if grp.name == selectedAct {
-													scenes = grp.sections
-													break
-												}
-											}
-											sceneList := layout.List{Axis: layout.Vertical}
-											return sceneList.Layout(gtx, len(scenes), func(gtx layout.Context, i int) layout.Dimensions {
-												sc := scenes[i]
-												isCurrent := sc.index == guide.CurrentIndex
-												btn := material.Button(th, sceneBtns[sc.index], sc.area)
-												if isCurrent {
-													btn.Background = color.NRGBA{R: 0x2a, G: 0x5a, B: 0x2e, A: 0xff}
-													btn.Color = color.NRGBA{R: 0x4d, G: 0xff, B: 0x4d, A: 0xff}
-												} else {
-													btn.Background = color.NRGBA{R: 0x2a, G: 0x2a, B: 0x2e, A: 0xff}
-													btn.Color = color.NRGBA{R: 0xdd, G: 0xdd, B: 0xdd, A: 0xff}
-												}
-												btn.Inset = layout.UniformInset(unit.Dp(2))
-												return btn.Layout(gtx)
-											})
-										}),
-									)
+								layout.Rigid(layout.Spacer{Width: unit.Dp(6)}.Layout),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									var mark string
+									var markColor color.NRGBA
+									if found {
+										mark = "\u2713" // checkmark
+										markColor = color.NRGBA{R: 0x4d, G: 0xff, B: 0x4d, A: 0xff}
+									} else {
+										mark = "\u2717" // X
+										markColor = color.NRGBA{R: 0xff, G: 0x4d, B: 0x4d, A: 0xff}
+									}
+									label := material.Label(th, unit.Sp(16), mark)
+									label.Color = markColor
+									return label.Layout(gtx)
 								}),
 							)
 						})
-					})
-				})
-			} else {
-				// Add the window drag handler FIRST so it sits below all content
-				// in the z-order. Buttons rendered on top will receive clicks.
-				area := clip.Rect(image.Rectangle{Max: e.Size}).Push(gtx.Ops)
-				system.ActionInputOp(system.ActionMove).Add(gtx.Ops)
-				area.Pop()
+					}),
+					layout.Rigid(layout.Spacer{Height: unit.Dp(6)}.Layout),
+					// Steps list
+					layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+						if len(section.Steps) == 0 {
+							label := material.Label(th, unit.Sp(14), "No guide steps for this area.")
+							label.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
+							label.Alignment = text.Middle
+							return label.Layout(gtx)
+						}
 
-				// Render a dark window background
-				paint.ColorOp{Color: color.NRGBA{R: 0x1a, G: 0x1a, B: 0x1e, A: 0xff}}.Add(&ops)
-				paint.PaintOp{}.Add(&ops)
-
-				// 5. Render guide content
-				layout.UniformInset(unit.Dp(4)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-					return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-						// Area name header (from the guide section, not the raw log)
-						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, Spacing: layout.SpaceBetween}.Layout(gtx,
-								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-									// Search button
-									btn := material.Button(th, magnifierBtn, "SEARCH")
-									btn.Background = color.NRGBA{R: 0x33, G: 0x33, B: 0x37, A: 0xff}
-									btn.Color = color.NRGBA{R: 0xcc, G: 0xcc, B: 0xcc, A: 0xff}
-									btn.Inset = layout.UniformInset(unit.Dp(4))
-									return btn.Layout(gtx)
-								}),
-								layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-									return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-										return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, Spacing: layout.SpaceStart}.Layout(gtx,
-											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-												headerArea := section.Area
-												if headerArea == "" {
-													headerArea = areaName
-												}
-												label := material.Label(th, unit.Sp(16), headerArea)
-												label.Color = color.NRGBA{R: 0xff, G: 0xff, B: 0xff, A: 0xff}
-												return label.Layout(gtx)
-											}),
-											layout.Rigid(layout.Spacer{Width: unit.Dp(6)}.Layout),
-											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-												var mark string
-												var markColor color.NRGBA
-												if found {
-													mark = "\u2713" // checkmark
-													markColor = color.NRGBA{R: 0x4d, G: 0xff, B: 0x4d, A: 0xff}
-												} else {
-													mark = "\u2717" // X
-													markColor = color.NRGBA{R: 0xff, G: 0x4d, B: 0x4d, A: 0xff}
-												}
-												label := material.Label(th, unit.Sp(16), mark)
-												label.Color = markColor
-												return label.Layout(gtx)
-											}),
-										)
-									})
-								}),
-								layout.Rigid(layout.Spacer{Width: unit.Dp(24)}.Layout),
-							)
-						}),
-						layout.Rigid(layout.Spacer{Height: unit.Dp(6)}.Layout),
-						// Steps list
-						layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-							if len(section.Steps) == 0 {
-								label := material.Label(th, unit.Sp(14), "No guide steps for this area.")
-								label.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
-								label.Alignment = text.Middle
-								return label.Layout(gtx)
-							}
-
-							list := layout.List{Axis: layout.Vertical}
-							return list.Layout(gtx, len(section.Steps), func(gtx layout.Context, i int) layout.Dimensions {
-								step := section.Steps[i]
-								return layout.UniformInset(unit.Dp(4)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-									return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
-										layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-												return badgeLayout(gtx, th, step.Type)
-											}),
-										layout.Rigid(layout.Spacer{Width: unit.Dp(6)}.Layout),
-										layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-													textLabel := material.Label(th, unit.Sp(14), step.Text)
-													textLabel.Color = color.NRGBA{R: 0xdd, G: 0xdd, B: 0xdd, A: 0xff}
-													return textLabel.Layout(gtx)
-												}),
-									)
-								})
+						list := layout.List{Axis: layout.Vertical}
+						return list.Layout(gtx, len(section.Steps), func(gtx layout.Context, i int) layout.Dimensions {
+							step := section.Steps[i]
+							return layout.UniformInset(unit.Dp(4)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+								return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return badgeLayout(gtx, th, step.Type)
+									}),
+									layout.Rigid(layout.Spacer{Width: unit.Dp(6)}.Layout),
+									layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+										textLabel := material.Label(th, unit.Sp(14), step.Text)
+										textLabel.Color = color.NRGBA{R: 0xdd, G: 0xdd, B: 0xdd, A: 0xff}
+										return textLabel.Layout(gtx)
+									}),
+								)
 							})
-						}),
-						// Current log area at the bottom
-						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-							return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-								label := material.Label(th, unit.Sp(11), areaName)
-								label.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
-								return label.Layout(gtx)
-							})
-						}),
-					)
-				})
+						})
+					}),
+					// Current log area at the bottom
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							label := material.Label(th, unit.Sp(11), areaName)
+							label.Color = color.NRGBA{R: 0x88, G: 0x88, B: 0x88, A: 0xff}
+							return label.Layout(gtx)
+						})
+					}),
+				)
+			})
 
-				// Handle search button click
-				if magnifierBtn.Clicked(gtx) {
-					showModal = true
-				}
-			}
+			// Make the entire window draggable by adding a system move action on top of all content.
+			area := clip.Rect(image.Rectangle{Max: e.Size}).Push(gtx.Ops)
+			system.ActionInputOp(system.ActionMove).Add(gtx.Ops)
+			area.Pop()
 
 			e.Frame(&ops)
 		}
 	}
-}
-
-type sectionRef struct {
-	index int
-	area  string
-}
-
-type actGroup struct {
-	name     string
-	sections []sectionRef
-}
-
-func buildActGroups(sections []Section) []actGroup {
-	groups := make([]actGroup, 0)
-	var current *actGroup
-	for i, sec := range sections {
-		if current == nil || current.name != sec.Act {
-			if current != nil {
-				groups = append(groups, *current)
-			}
-			current = &actGroup{name: sec.Act}
-		}
-		current.sections = append(current.sections, sectionRef{index: i, area: sec.Area})
-	}
-	if current != nil {
-		groups = append(groups, *current)
-	}
-	return groups
 }
 
 func getRecentScenes(path string, count int) []string {
