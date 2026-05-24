@@ -9,12 +9,13 @@ import (
 type StepType string
 
 const (
-	StepNPC  StepType = "npc"
-	StepLoot StepType = "loot"
-	StepKill StepType = "kill"
-	StepExit StepType = "exit"
-	StepTP   StepType = "tp"
-	StepUse  StepType = "use"
+	StepNPC    StepType = "npc"
+	StepLoot   StepType = "loot"
+	StepKill   StepType = "kill"
+	StepExit   StepType = "exit"
+	StepTP     StepType = "tp"
+	StepUse    StepType = "use"
+	StepTravel StepType = "travel"
 )
 
 type Step struct {
@@ -62,7 +63,7 @@ func LoadGuide(path string) (*Guide, error) {
 			var text string
 			found := false
 
-			for _, t := range []StepType{StepNPC, StepLoot, StepKill, StepExit, StepTP, StepUse} {
+			for _, t := range []StepType{StepNPC, StepLoot, StepKill, StepExit, StepTP, StepUse, StepTravel} {
 				if strings.HasPrefix(rest, string(t)) {
 					stepType = t
 					text = strings.TrimSpace(strings.TrimPrefix(rest, string(t)))
@@ -104,26 +105,40 @@ func LoadGuide(path string) (*Guide, error) {
 	return guide, nil
 }
 
-func (g *Guide) OnAreaChange(area string) {
+func LoadGuides(paths []string) (*Guide, error) {
+	combined := &Guide{
+		Sections: []Section{},
+	}
+	for _, path := range paths {
+		g, err := LoadGuide(path)
+		if err != nil {
+			return nil, err
+		}
+		combined.Sections = append(combined.Sections, g.Sections...)
+	}
+	return combined, nil
+}
+
+func (g *Guide) OnAreaChange(area string) bool {
 	if g.CurrentIndex < len(g.Sections) && g.Sections[g.CurrentIndex].Area == area {
-		return
+		return true
 	}
 	if g.CurrentIndex+1 < len(g.Sections) && g.Sections[g.CurrentIndex+1].Area == area {
 		g.CurrentIndex++
-		return
+		return true
 	}
 	// Look behind for the most recent occurrence within a small window
 	for i := g.CurrentIndex - 1; i >= 0 && i >= g.CurrentIndex-5; i-- {
 		if g.Sections[i].Area == area {
 			g.CurrentIndex = i
-			return
+			return true
 		}
 	}
 	// Look ahead for the nearest occurrence within a small window
 	for i := g.CurrentIndex + 2; i < len(g.Sections) && i <= g.CurrentIndex+5; i++ {
 		if g.Sections[i].Area == area {
 			g.CurrentIndex = i
-			return
+			return true
 		}
 	}
 	// Not found nearby — scan the entire guide for the closest match.
@@ -143,7 +158,9 @@ func (g *Guide) OnAreaChange(area string) {
 	}
 	if bestIdx != -1 {
 		g.CurrentIndex = bestIdx
+		return true
 	}
+	return false
 }
 
 func (g *Guide) CurrentSection() Section {
