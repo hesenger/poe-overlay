@@ -11,7 +11,7 @@ Jungle Ruins
 Step type: killKill Silverfist for a Book of Specialisation
 Step type: wpFind waypoint near The Venom Crypts
 Step type: exitEnter Infested Barrens
-Infested Barrends
+Infested Barrens
 Step type: npcFind and talk to Alva and take the waypoint near her
 Step type: exitEnter Chimera Wetlands, take waypoint and go back
 Step type: exitEnter Azak Bog, take waypoint and go back

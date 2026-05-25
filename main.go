@@ -93,7 +93,7 @@ func run(w *app.Window) error {
 	var ops op.Ops
 	frameCount := 0
 
-	// Load all guide files from data directory
+	// Load all guide files from data directory in game progression order.
 	guideFiles := []string{
 		`data\act1.txt`,
 		`data\act2.txt`,

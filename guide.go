@@ -123,9 +123,22 @@ func (g *Guide) OnAreaChange(area string) bool {
 	if g.CurrentIndex < len(g.Sections) && g.Sections[g.CurrentIndex].Area == area {
 		return true
 	}
-	if g.CurrentIndex+1 < len(g.Sections) && g.Sections[g.CurrentIndex+1].Area == area {
-		g.CurrentIndex++
-		return true
+	// First try a small window for normal gameplay.
+	const lookAhead = 10
+	for i := g.CurrentIndex + 1; i < len(g.Sections) && i <= g.CurrentIndex+lookAhead; i++ {
+		if g.Sections[i].Area == area {
+			g.CurrentIndex = i
+			return true
+		}
+	}
+	// If not found nearby, scan the entire rest of the guide forward.
+	// This handles act transitions where the current index may be at
+	// a wrong earlier occurrence of a repeated town name.
+	for i := g.CurrentIndex + lookAhead + 1; i < len(g.Sections); i++ {
+		if g.Sections[i].Area == area {
+			g.CurrentIndex = i
+			return true
+		}
 	}
 	return false
 }
